@@ -35,42 +35,44 @@ and can be interpreted as sets, while others are explicitly defined.
 
 Pre-defined macros: | Stands for:
 --------------------|---------------------------
-{ws}                | A whitespace character
-{nonws}             | A character that is not whitespace
-{term}              | A terminator character or sequence (\n, \r, and \r\n)
-{nonterm}           | A character that is not a terminator
+`{ws}`              | A whitespace character
+`{nonws}`           | A character that is not whitespace
+`{term}`            | A terminator character or sequence (\n, \r, and \r\n)
+`{nonterm}`         | A character that is not a terminator
 
 Explicitly defined macros: | Stands for:
 ---------------------------|--------------------------------------------------
-{wsc}                      | A whitespace character or a comment
-{name}                     | A valid name with leading and trailing whitespace
+`{wsc}`                    | A whitespace character or a comment
+`{name}`                   | A valid name with leading and trailing whitespace
 
-Tokens that carry values have a comment separated list of characters that
+Tokens that carry values have a comma separated list of characters that
 identify what values they have.  A '.' is placed after the part of an expression
 read into one of the token's attributes; a character that follows the '.'
 indicates which attribute the sequence is placed.
 
-Regular Expression                      | Token          | Abbreviation
-----------------------------------------|----------------|-------------
-{name} : {nonterm}*.f ({term}\|<eof>)   | FIELD_PAIR,n,f | f
-{name} [                                | LIST_START,n   | l
-{wsc}* ] {wsc}* <eof>                   | LIST_END       | e
+Regular Expression                      | Token            | Abbreviation
+----------------------------------------|------------------|-------------
+`{name} : {nonterm}*.f ({term}\|<eof>)` | `FIELD_PAIR,n,f` | `f`
+`{name} [`                              | `LIST_START,n`   | `l`
+`{wsc}* ] {wsc}* <eof>`                 | `LIST_END`       | `e`
 
+```
 {wsc} = {ws}* # {nonterm}* {term}
 {name} = {wsc}* {nonws}*.n {wsc}*
+```
 
 Grammar
 -------
 
 Variable | Expression | Description
 ---------|------------|---------------------------
-S        | ::= fS     | Start/top level
-         | ::= lS'E   |
-         | ::= ε      |
-S'       | ::= fS'    | Sub-level
-         | ::= lS'E'  |
-E        | ::= eS     | Exit to top level
-E'       | ::= eS'    | Exit to previous sub-level
+`S`      | `::= fS`     | Start/top level
+         | `::= lS'E`   |
+         | `::= ε`      |
+`S'`     | `::= fS'`    | Sub-level
+         | `::= lS'E'`  |
+`E`      | `::= eS`     | Exit to top level
+`E'`     | `::= eS'`    | Exit to previous sub-level
 
 
 [KeyValues]: https://developer.valvesoftware.com/wiki/KeyValues_class
