@@ -8,7 +8,7 @@
 static const uint8_t bom[3] = { 0xEF, 0xBB, 0xBF };
 
 static const size_t INIT_NAME_SIZE = 16;
-static const size_t INIT_FIELD_SIZE = 128;
+static const size_t INIT_DATUM_SIZE = 128;
 
 struct RszString
 {
@@ -85,10 +85,10 @@ void stripComment(unsigned int *line, FILE *stream)
 const char *parseNoq(struct Hpl_Node *hpl, bool top, unsigned int *line,
   FILE *stream)
 {
-    enum { READ_LEADING_WS, READ_NAME, READ_TRAILING_WS, READ_FIELD, DONE }
+    enum { READ_LEADING_WS, READ_NAME, READ_TRAILING_WS, READ_DATUM, DONE }
       state = READ_LEADING_WS;
     struct RszString *name = newRszString(INIT_NAME_SIZE);
-    struct RszString *field = newRszString(INIT_FIELD_SIZE);
+    struct RszString *datum = newRszString(INIT_DATUM_SIZE);
     const char *errorMsg;
 
     while (state != DONE) {
@@ -99,14 +99,14 @@ const char *parseNoq(struct Hpl_Node *hpl, bool top, unsigned int *line,
             state = DONE;
         }
 
-        else if (state == READ_FIELD) {
+        else if (state == READ_DATUM) {
             if (handleLineTerm(ch, line, stream) || ch == EOF) {
-                hpl = Hpl_appendField(hpl, name->data, field->data);
+                hpl = Hpl_appendDatum(hpl, name->data, datum->data);
                 clearRszString(name);
-                clearRszString(field);
+                clearRszString(datum);
                 state = READ_LEADING_WS;
             } else {
-                appendChar(field, (char)ch);
+                appendChar(datum, (char)ch);
             }
         }
 
@@ -118,7 +118,7 @@ const char *parseNoq(struct Hpl_Node *hpl, bool top, unsigned int *line,
                 errorMsg = NULL;
             } 
             else {
-                errorMsg = "Missing field.";
+                errorMsg = "Missing datum.";
             }
 
             state = DONE;
@@ -137,7 +137,7 @@ const char *parseNoq(struct Hpl_Node *hpl, bool top, unsigned int *line,
         }
 
         else if (ch == ':')
-            state = READ_FIELD;
+            state = READ_DATUM;
 
         else if (ch == '[') {
             struct Hpl_NodePair pair = Hpl_appendSubList(hpl, name->data);
@@ -157,7 +157,7 @@ const char *parseNoq(struct Hpl_Node *hpl, bool top, unsigned int *line,
             else if (state == READ_LEADING_WS)
                 errorMsg = NULL;
             else
-                errorMsg = "Missing field.";
+                errorMsg = "Missing datum.";
             state = DONE;
         }
 
@@ -176,7 +176,7 @@ const char *parseNoq(struct Hpl_Node *hpl, bool top, unsigned int *line,
     }
 
     freeRszString(name);
-    freeRszString(field);
+    freeRszString(datum);
     return errorMsg;
 }
 

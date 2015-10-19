@@ -9,18 +9,18 @@ struct Hpl_Node *Hpl_new()
     hpl->type = HPL_EMPTY;
     hpl->next = NULL;
     hpl->name = NULL;
-    hpl->value.field = NULL;
+    hpl->value.datum = NULL;
     return hpl;
 }
 
-struct Hpl_Node *Hpl_appendField(struct Hpl_Node *hpl, const char *name,
-  const char *field)
+struct Hpl_Node *Hpl_appendDatum(struct Hpl_Node *hpl, const char *name,
+  const char *datum)
 {
-    hpl->type = HPL_FIELD;
+    hpl->type = HPL_DATUM;
     hpl->name = (char *)malloc(strlen(name) + 1);
     strcpy(hpl->name, name);
-    hpl->value.field = (char *)malloc(strlen(field) + 1);
-    strcpy(hpl->value.field, field);
+    hpl->value.datum = (char *)malloc(strlen(datum) + 1);
+    strcpy(hpl->value.datum, datum);
     hpl->next = Hpl_new();
     return hpl->next;
 }
@@ -41,8 +41,8 @@ void Hpl_free(struct Hpl_Node *hpl)
     if (hpl->type != HPL_EMPTY)
         free(hpl->name);
 
-    if (hpl->type == HPL_FIELD)
-        free(hpl->value.field);
+    if (hpl->type == HPL_DATUM)
+        free(hpl->value.datum);
     else if (hpl->type == HPL_SUB_LIST)
         Hpl_free(hpl->value.subList);
 
@@ -52,12 +52,12 @@ void Hpl_free(struct Hpl_Node *hpl)
     free(hpl);
 }
 
-const char *Hpl_readField(const struct Hpl_Node *node)
+const char *Hpl_readDatum(const struct Hpl_Node *node)
 {
-    if (node->type != HPL_FIELD)
+    if (node->type != HPL_DATUM)
         return NULL;
 
-    return node->value.field;
+    return node->value.datum;
 }
 
 const struct Hpl_Node *Hpl_readSubList(const struct Hpl_Node *node)
