@@ -25,17 +25,16 @@ Macro       | Stands for:
 *{nonws}*   | A character that is not whitespace
 *{term}*    | A terminator character or sequence (\n, \r, and \r\n)
 *{nonterm}* | A character that is not a terminator
-*{wsc}*     | *{wsc} = {ws}\** # *{nonterm}\* {term}*
-*{name}*    | *{name} = {wsc}\* {nonws}\*.n {wsc}*
+*{wsc}*     | `{ws}* # {nonterm}* {term}`
+*{name}*    | `{wsc}* {nonws}*.n {wsc}`
 
-Regular Expression                         | Token            | Abbreviation
--------------------------------------------|------------------|-------------
-*{name}* : *{nonterm}\*.d ({term}\|<eof>)* | DATUM_PAIR,n,d   | `d`
-*{name}* [                                 | LIST_START,n     | `l`
-*{wsc}\** ] *{wsc}\* <eof>*                | LIST_END         | `e`
+Regular Expression                     | Token            | Abbreviation
+---------------------------------------|------------------|-------------
+`{name} : {nonterm}*.d ({term}|<eof>)` | DATUM_PAIR,n,d   | `d`
+`{name} [`                             | LIST_START,n     | `l`
+`{wsc}* ] {wsc}* <eof>`                | LIST_END         | `e`
 
 Tokens that carry values have a comma separated list of characters that identify what values they have.  A '.' is placed after the part of an expression that is read into one of the token's attributes; a character that follows the '.' indicates which attribute the sequence is placed.
-
 
 Abbreviations stand for tokens in the grammar.
 
