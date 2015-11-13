@@ -19,19 +19,19 @@ Tokenization
 
 These regular expressions describe how a No Quote file is broken into tokens.  The symbols `: # [ ]` are treated literally, while other symbols have special meaning.  Basic RE symbols are used: the kleene star matches zero or more instances of a pattern, parentheses group patterns, and vertical bars match one of two patterns on the left or right.  Patterns that are adjacent to eachother (spaces are ignored) create a concatenated pattern.  Items enclosed in curly braces are "macros" that expand into patterns.
 
-Macro       | Stands for:
-------------|---------------------------
-*{ident}*   | A valid character as part of a name (non whitespace, [, ], #, or :)
-*{term}*    | A terminator character or sequence (\n, \r, or \r\n)
-*{nonterm}* | A character that is not a terminator
+Character Classes | Stands for:
+------------------|---------------------------
+*{ident}*         | A valid character as part of a name (non whitespace, [, ], :, or #)
+*{term}*          | A terminator character or sequence (\n, \r, or \r\n)
+*{nonterm}*       | A character that is not a terminator
 
 Regular Expression                     | Token            | Abbreviation
 ---------------------------------------|------------------|-------------
-#*{nonterm}\*{term}*                   |                  |
-:*{nonterm}\*{term}*                   |                  |
+#*`{nonterm}*{term}`*                   |                  |
+:*`{nonterm}*{term}`*                   |                  |
 [                                      |                  |
 ]                                      |                  |
-*{ident}\**                            |                  |
+*`{ident}*`*                             |                  |
 
 Tokens that carry values have a comma separated list of characters that identify what values they have.  A '.' is placed after the part of an expression that is read into one of the token's attributes; a character that follows the '.' indicates which attribute the sequence is placed.
 
