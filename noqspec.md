@@ -21,18 +21,17 @@ These regular expressions describe how a No Quote file is broken into tokens.  T
 
 Macro       | Stands for:
 ------------|---------------------------
-*{ws}*      | A whitespace character
-*{nonws}*   | A character that is not whitespace
-*{term}*    | A terminator character or sequence (\n, \r, and \r\n)
+*{ident}*   | A valid character as part of a name (non whitespace, [, ], #, or :)
+*{term}*    | A terminator character or sequence (\n, \r, or \r\n)
 *{nonterm}* | A character that is not a terminator
-*{wsc}*     | `{ws}* # {nonterm}* {term}`
-*{name}*    | `{wsc}* {nonws}*.n {wsc}`
 
 Regular Expression                     | Token            | Abbreviation
 ---------------------------------------|------------------|-------------
-`{name} : {nonterm}*.d ({term}|<eof>)` | DATUM_PAIR,n,d   | `d`
-`{name} [`                             | LIST_START,n     | `l`
-`{wsc}* ] {wsc}* <eof>`                | LIST_END         | `e`
+#*{nonterm}\*{term}*                   |                  |
+:*{nonterm}\*{term}*                   |                  |
+[                                      |                  |
+]                                      |                  |
+*{ident}\**                            |                  |
 
 Tokens that carry values have a comma separated list of characters that identify what values they have.  A '.' is placed after the part of an expression that is read into one of the token's attributes; a character that follows the '.' indicates which attribute the sequence is placed.
 
