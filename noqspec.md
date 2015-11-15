@@ -25,13 +25,13 @@ Character Classes | Stands for:
 *{term}*          | A terminator character or sequence (\n, \r, or \r\n)
 *{nonterm}*       | A character that is not a terminator
 
-Regular Expression                     | Token            | Abbreviation
----------------------------------------|------------------|-------------
-#*`{nonterm}*{term}`*                   |                  |
-:*`{nonterm}*{term}`*                   |                  |
-[                                      |                  |
-]                                      |                  |
-*`{ident}*`*                             |                  |
+Regular Expression                     | Token  | Abbreviation
+---------------------------------------|--------|-------------
+#*`{nonterm}*{term}`*                  | `void` | 
+:*`{nonterm}*{term}`*                  | datum  | d
+[                                      | [      | o
+]                                      | ]      | c
+*`{ident}*`*                           | name   | n
 
 Tokens that carry values have a comma separated list of characters that identify what values they have.  A '.' is placed after the part of an expression that is read into one of the token's attributes; a character that follows the '.' indicates which attribute the sequence is placed.
 
@@ -40,14 +40,17 @@ Abbreviations stand for tokens in the grammar.
 Grammar 
 -------
 
-Variable | Expression   | Description
----------|--------------|---------------------------
-`S`      | `::= dS`     | Start/top level
-         | `::= lS'E`   |
-         | `::= ε`      |
-`S'`     | `::= dS'`    | Sub-level
-         | `::= lS'E'`  |
-`E`      | `::= eS`     | Exit to top level
-`E'`     | `::= eS'`    | Exit to previous sub-level
+Variable | Expression         | | Terminals |
+---------|--------------------| |-----------|
+S        | ::= LF             | | n - name
+L        | ::= nD             | | d - datum
+         | ::= nOC            | | c - ]
+         | ::= ε              | | o - [
+D        | ::= dL             |
+O        | ::= oL             |
+C        | ::= cL             |
+F        | ::= *<end of file>*|
+
+
 
 [KeyValues]: https://developer.valvesoftware.com/wiki/KeyValues_class
