@@ -49,6 +49,6 @@ L        | ::= nD             |
 D        | ::= dL             |
 O        | ::= oL             |
 C        | ::= cL             |
-F        | ::= <end of file>|
+F        | ::= \<end of file\>|
 
 [KeyValues]: https://developer.valvesoftware.com/wiki/KeyValues_class
