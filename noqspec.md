@@ -40,17 +40,21 @@ Abbreviations stand for tokens in the grammar.
 Grammar 
 -------
 
-Variable | Expression         | | Terminals |
----------|--------------------| |-----------|
-S        | ::= LF             | | n - name
-L        | ::= nD             | | d - datum
-         | ::= nOC            | | c - ]
-         | ::= ε              | | o - [
+Variable | Expression         | 
+---------|--------------------| 
+S        | ::= LF             | 
+L        | ::= nD             | 
+         | ::= nOC            | 
+         | ::= ε              | 
 D        | ::= dL             |
 O        | ::= oL             |
 C        | ::= cL             |
 F        | ::= *<end of file>*|
 
-
-
+| Terminals |
+|-----------|
+| n - name  |
+| d - datum |
+| c - ]     |
+| o - [     |
 [KeyValues]: https://developer.valvesoftware.com/wiki/KeyValues_class
