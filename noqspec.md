@@ -25,13 +25,13 @@ Character Classes | Stands for:
 *{term}*          | A terminator character or sequence (\n, \r, or \r\n)
 *{nonterm}*       | A character that is not a terminator
 
-Regular Expression                     | Token  | Abbreviation
----------------------------------------|--------|-------------
-#*`{nonterm}*{term}`*                  | `void` | 
-:*`{nonterm}*{term}`*                  | datum  | d
-[                                      | [      | o
-]                                      | ]      | c
-*`{ident}*`*                           | name   | n
+Regular Expression                     | Token  | 
+---------------------------------------|--------|
+#*`{nonterm}*{term}`*                  | `none` | 
+:*`{nonterm}*{term}`*                  | datum  |
+[                                      | [      |
+]                                      | ]      |
+*`{ident}*`*                           | name   |
 
 Tokens that carry values have a comma separated list of characters that identify what values they have.  A '.' is placed after the part of an expression that is read into one of the token's attributes; a character that follows the '.' indicates which attribute the sequence is placed.
 
@@ -40,15 +40,11 @@ Abbreviations stand for tokens in the grammar.
 Grammar 
 -------
 
-Variable | Expression         | 
----------|--------------------| 
-S        | ::= LF             | 
-L        | ::= nD             | 
-         | ::= nOC            | 
-         | ::= ε              | 
-D        | ::= dL             |
-O        | ::= oL             |
-C        | ::= cL             |
-F        | ::= \<end of file\>|
+---------------|----------------------
+_noq-file_     | ::= _pair-list_ <eof>
+_pair-list_    | ::= _pair_ _pair-list_
+               | ::= ε
+_pair_         | ::= name datum
+               | ::= name **[** _pair-list_ **]**
 
 [KeyValues]: https://developer.valvesoftware.com/wiki/KeyValues_class
