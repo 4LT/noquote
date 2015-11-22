@@ -42,7 +42,7 @@ Grammar
 
 |               |                                  |
 |---------------|----------------------------------|
-|_noq-file_     | ::= _pair-list_ <eof>            |
+|_noq-file_     | ::= _pair-list_ \<eof\>            |
 |_pair-list_    | ::= _pair_ _pair-list_           |
 |               | ::= ε                            |
 |_pair_         | ::= name datum                   |
