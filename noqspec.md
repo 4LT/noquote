@@ -1,7 +1,26 @@
 No Quote Specification 0.1.0
 ==============================
 
-No Quote is a file format for storing indexed data in a hierarchical structure, similar to JSON, YAML, and Valve Software's [KeyValues] [] format.  The objective of No Quote is to create a data format that is easy to read, manipulate, and parse.
+No Quote is a file format for storing named data in a hierarchical structure, similar to JSON, YAML, and Valve Software's [KeyValues] [] format.  The objective of No Quote is to create a data format that is easy to read, manipulate, and parse.
+
+Example
+=======
+
+```
+# Comment
+name :value
+name :value2
+root [
+    foo :bar
+    boo :baz
+
+    paragraph :Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a
+    :diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam
+    :viverra nec consectetur ante hendrerit.
+]
+
+quote :"no escapes are necessary" # not a comment, part of the value
+```
 
 Description of the No Quote Format
 ==================================
